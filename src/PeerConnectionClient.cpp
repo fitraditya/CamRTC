@@ -20,7 +20,7 @@
 PeerConnectionClient::PeerConnectionClient(const std::string & iceUrl) : m_peerConnectionFactory(NULL), m_iceUrl(iceUrl) {}
 
 PeerConnectionClient::~PeerConnectionClient() {
-  m_peerConnectionFactory = NULL
+  m_peerConnectionFactory = NULL;
 }
 
 bool PeerConnectionClient::Initialize() {
