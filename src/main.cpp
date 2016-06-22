@@ -14,7 +14,6 @@
 #include "webrtc/base/thread.h"
 
 #include "HTTPServer.h"
-#include "PeerConnectionClient.h"
 
 int main(int argc, char* argv[]) {
 	const char* port = "0.0.0.0:8000";
@@ -28,8 +27,6 @@ int main(int argc, char* argv[]) {
 
 	rtc::Thread* thread = rtc::Thread::Current();
 	rtc::InitializeSSL();
-
-  PeerConnectionClient rtcClient(iceUrl);
 
   if (rtcClient.Initialize()) {
     rtc::HttpListenServer httpServer;
