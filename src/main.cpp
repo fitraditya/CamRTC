@@ -16,7 +16,7 @@
 #include "HTTPServer.h"
 
 int main(int argc, char* argv[]) {
-	const char* port = "0.0.0.0:8000";
+	const char* address = "0.0.0.0:8000";
   const char* iceUrl = "stun:stun.l.google.com:19302";
 	int logLevel = rtc::LERROR;
   PeerConnectionClient rtcClient(iceUrl);
@@ -31,13 +31,13 @@ int main(int argc, char* argv[]) {
   if (rtcClient.Initialize()) {
     rtc::HttpListenServer httpServer;
     rtc::SocketAddress http_addr;
-    http_addr.FromString(port);
+    http_addr.FromString(address);
 
     if (httpServer.Listen(http_addr) != 0) {
       std::cout << "Cannot initialize HTTP server" << std::endl;
     } else {
       HTTPServer http(&httpServer, &rtcClient);
-      std::cout << "HTTP listening on port " << http_addr.ToString() << std::endl;
+      std::cout << "HTTP listening on " << http_addr.ToString() << std::endl;
 
       while(thread->ProcessMessages(10));
     }
