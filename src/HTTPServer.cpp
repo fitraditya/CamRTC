@@ -30,8 +30,21 @@ void HTTPServer::onRequest(rtc::HttpServer*, rtc::HttpServerTransaction* t) {
 
   if (path == "/device") {
     std::string answer(Json::StyledWriter().write(m_rtcClient->getVideoCapturer()));
-		rtc::MemoryStream* mem = new rtc::MemoryStream(answer.c_str(), answer.size());			
+		rtc::MemoryStream* mem = new rtc::MemoryStream(answer.c_str(), answer.size());
 		t->response.set_success("application/json", mem);
+  } else if (path == "/message") {
+    std::cout << "body: " << body << std::endl;
+    Json::Value object;
+    Json::Reader reader;
+    bool parsingSuccessful = reader.parse(body.c_str(), object);
+
+    if (!parsingSuccessful) {
+      std::cout  << "Failed to parsing message: " << reader.getFormattedErrorMessages() << std::endl;
+      t->response.set_error(500);
+    } else {
+      std::string type;
+      std::string message;
+    }
   } else {
     rtc::Pathname pathname("content/index.html");
     rtc::FileStream* fs = rtc::Filesystem::OpenFile(pathname, "rb");
