@@ -15,16 +15,16 @@
 #include "webrtc/base/json.h"
 
 class PeerConnectionClient {
-	public:
-		PeerConnectionClient(const std::string & iceUrl);
-		
+  public:
+    PeerConnectionClient(const std::string & iceUrl);
+
     ~PeerConnectionClient();
-    
+
     bool Initialize();
 
-		const Json::Value getVideoCapturer();
-  
-  protected: 
-		rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> m_peerConnectionFactory;
+    const Json::Value getVideoCapturer();
+
+  protected:
+    rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> m_peerConnectionFactory;
     std::string m_iceUrl;
 };
