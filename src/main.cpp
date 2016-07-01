@@ -16,17 +16,17 @@
 #include "HTTPServer.h"
 
 int main(int argc, char* argv[]) {
-	const char* address = "0.0.0.0:8000";
+  const char* address = "0.0.0.0:8000";
   const char* iceUrl = "stun:stun.l.google.com:19302";
-	int logLevel = rtc::LERROR;
+  int logLevel = rtc::LERROR;
   PeerConnectionClient rtcClient(iceUrl);
 
-	rtc::LogMessage::LogToDebug((rtc::LoggingSeverity)logLevel);
-	rtc::LogMessage::LogTimestamps();
-	rtc::LogMessage::LogThreads();
+  rtc::LogMessage::LogToDebug((rtc::LoggingSeverity)logLevel);
+  rtc::LogMessage::LogTimestamps();
+  rtc::LogMessage::LogThreads();
 
-	rtc::Thread* thread = rtc::Thread::Current();
-	rtc::InitializeSSL();
+  rtc::Thread* thread = rtc::Thread::Current();
+  rtc::InitializeSSL();
 
   if (rtcClient.Initialize()) {
     rtc::HttpListenServer httpServer;
@@ -45,6 +45,6 @@ int main(int argc, char* argv[]) {
     std::cout << "Cannot initialize WebRTC client" << std::endl;
   }
 
-	rtc::CleanupSSL();
-	return 0;
+  rtc::CleanupSSL();
+  return 0;
 }
