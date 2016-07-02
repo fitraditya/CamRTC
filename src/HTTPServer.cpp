@@ -40,6 +40,8 @@ void HTTPServer::onRequest(rtc::HttpServer*, rtc::HttpServerTransaction* t) {
     if (!parsingSuccessful) {
       std::cout  << "Failed to parsing message: " << reader.getFormattedErrorMessages() << std::endl;
       t->response.set_error(500);
+
+      return;
     } else {
       int peerId = 0;
       std::string device;
@@ -52,6 +54,8 @@ void HTTPServer::onRequest(rtc::HttpServer*, rtc::HttpServerTransaction* t) {
       if (!peerId) {
         std::cout  << "Unknown peer id." << std::endl;
         t->response.set_error(500);
+
+        return;
       }
 
       if (type == "offer") {
@@ -61,6 +65,8 @@ void HTTPServer::onRequest(rtc::HttpServer*, rtc::HttpServerTransaction* t) {
       } else {
         std::cout  << "Unknown message." << std::endl;
         t->response.set_error(500);
+
+        return;
       }
     }
   } else {
