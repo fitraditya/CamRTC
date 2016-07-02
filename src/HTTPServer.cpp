@@ -41,7 +41,7 @@ void HTTPServer::onRequest(rtc::HttpServer*, rtc::HttpServerTransaction* t) {
       std::cout  << "Failed to parsing message: " << reader.getFormattedErrorMessages() << std::endl;
       t->response.set_error(500);
     } else {
-      int peerId;
+      int peerId = 0;
       std::string device;
       std::string type;
       Json::Value data = object["data"];
