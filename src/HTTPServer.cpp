@@ -41,12 +41,27 @@ void HTTPServer::onRequest(rtc::HttpServer*, rtc::HttpServerTransaction* t) {
       std::cout  << "Failed to parsing message: " << reader.getFormattedErrorMessages() << std::endl;
       t->response.set_error(500);
     } else {
+      int peerId;
+      std::string device;
       std::string type;
-      std::string message;
-      rtc::GetStringFromJsonObject(object, "type", &type);
-      rtc::GetStringFromJsonObject(object, "message", &message);
-      std::cout << type << std::endl;
-      std::cout << message << std::endl;
+      Json::Value data = object["data"];
+      rtc::GetIntFromJsonObject(data, "peerId", &peerId);
+      rtc::GetStringFromJsonObject(data, "device", &device);
+      rtc::GetStringFromJsonObject(data, "type", &type);
+
+      if (!peerId) {
+        std::cout  << "Unknown peer id." << std::endl;
+        t->response.set_error(500);
+      }
+
+      if (type == "offer") {
+
+      } else if (type == "candidate") {
+
+      } else {
+        std::cout  << "Unknown message." << std::endl;
+        t->response.set_error(500);
+      }
     }
   } else {
     rtc::Pathname pathname("content/index.html");
